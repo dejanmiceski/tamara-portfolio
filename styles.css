@@ -836,6 +836,7 @@ body {
     flex-direction: column;
     gap: 24px;
     padding: 16px;
+    padding-top: 100px;
   }
 
   .product-image-wrapper {
