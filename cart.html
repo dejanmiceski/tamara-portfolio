@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart | Tamara Stojkovska</title>
     <link rel="stylesheet" href="styles.css" />
 </head>
@@ -25,32 +26,37 @@
     </header>
 
     <main class="cart-page">
-        <div class="cart-left">
-            <h2>Your Pre-Order</h2>
-            <div id="cart-items"></div>
+        <div>
+            <div class="cart-left">
+                <h2>Your Pre-Order</h2>
+                <div id="cart-items"></div>
 
-            <div class="cart-total">
-                <strong>Total:</strong> €<span id="total-price">0.00</span>
+                <div class="cart-total">
+                    <strong>Total:</strong> €<span id="total-price">0.00</span>
+                </div>
             </div>
         </div>
 
-        <div class="cart-right">
-            <h2>Reservation Details</h2>
+        <div class="cart-form">
+            <div >
+                <h2>Reservation Details</h2>
 
-            <form id="order-form">
-                <input type="text" id="name" name="first_name" placeholder="First name" required />
-                <input type="text" name="last_name" placeholder="Last name" required />
-                <input type="email" id="email" name="email" placeholder="Email address" required />
-                <input type="text" id="address" name="address" placeholder="Address" required />
-                <input type="tel" id="phone" name="phone" placeholder="Phone number" required />
+                <form id="order-form">
+                    <input type="text" id="name" name="first_name" placeholder="First name" required />
+                    <input type="text" name="last_name" placeholder="Last name" required />
+                    <input type="email" id="email" name="email" placeholder="Email address" required />
+                    <input type="text" id="address" name="address" placeholder="Address" required />
+                    <input type="tel" id="phone" name="phone" placeholder="Phone number" required />
 
-                <div id="order-message" class="order-message" style="display:none;"></div>
+                    <div id="order-message" class="order-message" style="display:none;"></div>
 
-                <button type="submit" class="reserve-btn">
-                    Reserve Order
-                </button>
-            </form>
+                    <button type="submit" class="reserve-btn">
+                        Reserve Order
+                    </button>
+                </form>
+            </div>
         </div>
+
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
