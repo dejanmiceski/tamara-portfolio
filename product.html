@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Product</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="nav">
+        <a href="index.html" class="logo">
+            TAMARA <span class="red">STOJKOVSKA</span>
+        </a>
+        <nav class="menu">
+            <a href="index.html">HOME</a>
+            <a href="index.html#merch" class="merch-link">MERCH</a>
+            <a href="cart.html" class="cart-link">
+                <img src="images/cart.png" alt="Cart" class="cart-icon">
+                <span id="cart-count">0</span>
+            </a>
+        </nav>
+    </header>
+
+    <!-- PRODUCT PAGE -->
+    <main class="product-page">
+
+        <!-- LEFT: IMAGE -->
+        <div class="product-image-wrapper">
+            <button class="image-nav left" id="prev">‹</button>
+            <img id="product-image" src="" alt="Product image" />
+            <button class="image-nav right" id="next">›</button>
+        </div>
+
+        <!-- RIGHT: INFO -->
+        <div class="product-info">
+            <h1 id="product-title"></h1>
+
+            <div class="sizes" id="sizes"></div>
+
+            <div class="quantity-control">
+                <button id="qty-minus">−</button>
+                <span id="qty" class="qty-value">1</span>
+                <button id="qty-plus">+</button>
+            </div>
+
+            <p class="price-price-inline">
+                Price: <span id="product-price">0.00</span>
+            </p>
+            <button id="add-to-cart">ADD TO CART</button>
+            <p id="add-to-cart-message" class="add-to-cart-message"></p>
+
+
+            <div class="product-description">
+                <p>
+                    This is a limited pre-order item. Each piece is made with care and will
+                    be produced after the order period ends. Estimated delivery time will
+                    be shared via email.
+                </p>
+            </div>
+
+            <div class="size-chart">
+                <img id="size-chart" src="" alt="Size chart" />
+            </div>
+        </div>
+
+    </main>
+
+    <script src="product.js"></script>
+</body>
+
+</html>
