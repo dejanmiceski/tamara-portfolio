@@ -17,16 +17,71 @@ function updateCartCount() {
   if (!countEl) return;
 
   countEl.textContent = cart.reduce(
-    (sum, item) => sum + (item.qty || 1),
+    (sum, item) => sum + (item.quantity || item.qty || 1),
     0
   );
 
   // Optional: hide badge if empty
-  countEl.style.display = cart.length ? "flex" : "none";
+  countEl.style.display = cart.length ? "inline-flex" : "none";
 }
 
 // Run on page load
 document.addEventListener("DOMContentLoaded", updateCartCount);
+
+// ===== AUDIO PLAYER (HOMEPAGE) =====
+document.addEventListener("DOMContentLoaded", () => {
+  const audio = document.getElementById("audioPlayer");
+  const playPauseBtn = document.getElementById("playPauseBtn");
+  const playIcon = document.getElementById("playIcon");
+  const pauseIcon = document.getElementById("pauseIcon");
+  const timeRemaining = document.getElementById("timeRemaining");
+
+  if (!audio) return;
+
+  // Set volume to max
+  audio.volume = 1.0;
+
+  // Format time helper
+  function formatTime(seconds) {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+  }
+
+  // Play/Pause toggle
+  playPauseBtn.addEventListener("click", () => {
+    if (audio.paused) {
+      audio.play();
+      playIcon.style.display = "none";
+      pauseIcon.style.display = "block";
+    } else {
+      audio.pause();
+      playIcon.style.display = "block";
+      pauseIcon.style.display = "none";
+    }
+  });
+
+  // Update remaining time
+  audio.addEventListener("timeupdate", () => {
+    const remaining = audio.duration - audio.currentTime;
+    timeRemaining.textContent = formatTime(remaining);
+  });
+
+  // Set initial remaining time when metadata loads
+  audio.addEventListener("loadedmetadata", () => {
+    timeRemaining.textContent = formatTime(audio.duration);
+  });
+
+  // Autoplay on page load
+  audio.play().then(() => {
+    // Successfully started playback
+    playIcon.style.display = "none";
+    pauseIcon.style.display = "block";
+  }).catch(err => {
+    // Autoplay was blocked - user will need to click play
+    console.log("Autoplay prevented - user interaction required");
+  });
+});
 
 // ===== MOBILE MENU TOGGLE =====
 document.addEventListener("DOMContentLoaded", () => {

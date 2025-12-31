@@ -182,7 +182,11 @@ function showMessage(text, type) {
 function updateCartCount() {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     const el = document.getElementById("cart-count");
-    if (el) el.textContent = cart.length;
+    if (el) {
+        const total = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+        el.textContent = total;
+        el.style.display = cart.length ? "inline-flex" : "none";
+    }
 }
 
 updateCartCount();

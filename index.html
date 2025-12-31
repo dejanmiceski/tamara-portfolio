@@ -39,8 +39,9 @@
             <div class="hero-overlay"></div>
 
             <div class="release">
-                <img src="https://img.youtube.com/vi/9b8NB1cmnZ8/maxresdefault.jpg" alt="Da te sakam lesno e"
-                    class="release-image" />
+                <img src="https://img.youtube.com/vi/9b8NB1cmnZ8/maxresdefault.jpg" 
+                     alt="Da te sakam lesno e" 
+                     class="release-image" />
 
                 <div class="release-artist">TAMARA STOJKOVSKA</div>
                 <h1 class="release-title">DA TE SAKAM LESNO E</h1>
@@ -48,6 +49,26 @@
                 <a href="https://linktr.ee/tamarastojkovska" target="_blank" class="release-button">
                     LISTEN NOW
                 </a>
+            </div>
+
+            <!-- AUDIO PLAYER -->
+            <div class="audio-player-mini">
+                <button class="player-btn-mini" id="playPauseBtn">
+                    <svg id="playIcon" viewBox="0 0 24 24" width="16" height="16">
+                        <path d="M8 5v14l11-7z" fill="currentColor"/>
+                    </svg>
+                    <svg id="pauseIcon" viewBox="0 0 24 24" width="16" height="16" style="display: none;">
+                        <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" fill="currentColor"/>
+                    </svg>
+                </button>
+                
+                <span class="song-title-mini">Da te sakam lesno e</span>
+                <span class="time-remaining" id="timeRemaining">0:00</span>
+
+                <audio id="audioPlayer" preload="auto" autoplay>
+                    <source src="TamaraSong.wav" type="audio/wav">
+                    Your browser does not support the audio element.
+                </audio>
             </div>
         </section>
 
