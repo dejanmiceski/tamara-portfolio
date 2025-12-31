@@ -1,3 +1,10 @@
+// Prevent double execution
+if (window.productPageInitialized) {
+    console.error("Product.js already loaded!");
+    throw new Error("Product.js loaded twice");
+}
+window.productPageInitialized = true;
+
 /* =========================
    PRODUCTS CONFIG
 ========================= */
@@ -131,24 +138,40 @@ document.getElementById("next").onclick = () => {
 /* =========================
    ADD TO CART
 ========================= */
-addToCartBtn.onclick = () => {
+let isProcessing = false;
+
+addToCartBtn.addEventListener("click", function handleAddToCart(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    // Prevent double clicks
+    if (isProcessing) {
+        console.log("Already processing, ignoring click");
+        return;
+    }
+    
     if (!selectedSize) {
         showMessage("Please select a size.", "error");
         return;
     }
 
+    isProcessing = true;
+    console.log("Processing add to cart...");
+
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    console.log("Cart before:", cart.length);
 
     const cartItem = {
         id: product.id,
-        name: product.name,        // IMPORTANT: use `name`, not `title`
+        name: product.name,
         price: product.price,
         size: selectedSize,
-        quantity: quantity,        // IMPORTANT: use `quantity`, not `qty`
+        quantity: quantity,
         image: product.images[0]
     };
 
     cart.push(cartItem);
+    console.log("Cart after:", cart.length);
 
     localStorage.setItem("cart", JSON.stringify(cart));
     updateCartCount();
@@ -162,8 +185,13 @@ addToCartBtn.onclick = () => {
     );
 
     showMessage("Item added to cart ✓", "success");
-
-};
+    
+    // Reset processing flag after a short delay
+    setTimeout(() => {
+        isProcessing = false;
+        console.log("Ready for next add");
+    }, 500);
+});
 
 function showMessage(text, type) {
   const msg = document.getElementById("add-to-cart-message");
@@ -176,17 +204,4 @@ function showMessage(text, type) {
   }, 2500);
 }
 
-/* =========================
-   CART COUNT
-========================= */
-function updateCartCount() {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const el = document.getElementById("cart-count");
-    if (el) {
-        const total = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
-        el.textContent = total;
-        el.style.display = cart.length ? "inline-flex" : "none";
-    }
-}
-
-updateCartCount();
+// Cart count is handled by script.js
