@@ -93,12 +93,26 @@ document.addEventListener("DOMContentLoaded", () => {
     timeRemaining.textContent = formatTime(audio.duration);
   });
 
-  // Autoplay attempt
-  audio.play().then(() => {
-    playIcon.style.display = "none";
-    pauseIcon.style.display = "block";
-  }).catch(err => {
-    // Autoplay blocked by browser - user needs to click play
-    console.log("Autoplay prevented by browser");
-  });
+  // Autoplay attempt (works on desktop and some mobile after user interaction)
+  const tryAutoplay = () => {
+    audio.play().then(() => {
+      playIcon.style.display = "none";
+      pauseIcon.style.display = "block";
+    }).catch(err => {
+      console.log("Autoplay prevented by browser");
+    });
+  };
+
+  // Try autoplay immediately
+  tryAutoplay();
+
+  // For mobile: try again on first user interaction
+  const enableAutoplayOnInteraction = () => {
+    tryAutoplay();
+    document.removeEventListener("touchstart", enableAutoplayOnInteraction);
+    document.removeEventListener("click", enableAutoplayOnInteraction);
+  };
+
+  document.addEventListener("touchstart", enableAutoplayOnInteraction, { once: true });
+  document.addEventListener("click", enableAutoplayOnInteraction, { once: true });
 });
