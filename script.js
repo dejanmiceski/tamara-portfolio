@@ -27,3 +27,33 @@ function updateCartCount() {
 
 // Run on page load
 document.addEventListener("DOMContentLoaded", updateCartCount);
+
+// ===== MOBILE MENU TOGGLE =====
+document.addEventListener("DOMContentLoaded", () => {
+  const menuToggle = document.querySelector(".menu-toggle");
+  const menu = document.querySelector(".menu");
+
+  if (menuToggle && menu) {
+    menuToggle.addEventListener("click", () => {
+      menu.classList.toggle("active");
+      menuToggle.classList.toggle("active");
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener("click", (e) => {
+      if (!menuToggle.contains(e.target) && !menu.contains(e.target)) {
+        menu.classList.remove("active");
+        menuToggle.classList.remove("active");
+      }
+    });
+
+    // Close menu when clicking a link
+    const menuLinks = menu.querySelectorAll("a");
+    menuLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        menu.classList.remove("active");
+        menuToggle.classList.remove("active");
+      });
+    });
+  }
+});

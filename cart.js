@@ -39,10 +39,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!cart.length) {
         container.innerHTML = "<p>Your cart is empty.</p>";
-        return;
-    }
-
-    cart.forEach((item, index) => {
+        // Don't return here - we still need to attach the form handler
+    } else {
+        // Only render cart items if cart is not empty
+        cart.forEach((item, index) => {
         const itemTotal = item.price * item.quantity;
         total += itemTotal;
 
@@ -76,8 +76,9 @@ document.addEventListener("DOMContentLoaded", () => {
             location.reload();
         }
     });
+    }
 
-    // Submit order
+    // Submit order - attach handler regardless of cart state
     document.getElementById("order-form").addEventListener("submit", async e => {
         e.preventDefault();
 
